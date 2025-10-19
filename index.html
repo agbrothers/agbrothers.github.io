@@ -4,124 +4,188 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Greyson Brothers – CV</title>
-
-  <!-- 1️⃣  TAILWIND via CDN for rapid styling; replace with a local build when you need production‑grade performance -->
+  <title>Greyson Brothers</title>
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- 2️⃣  CUSTOM FONTS: drop your .woff2 / .woff files in a  ⇢  /fonts  folder and list them below -->
   <style>
     @font-face {
       font-family: "YourCustomFont";
       src: url("fonts/YourCustomFont.woff2") format("woff2"),
            url("fonts/YourCustomFont.woff") format("woff");
-      font-weight: normal;
-      font-style: normal;
       font-display: swap;
     }
-    body {
-      font-family: "YourCustomFont", ui-sans-serif, system-ui;
+    body { font-family: "YourCustomFont", ui-sans-serif, system-ui; }
+
+    /* Custom buttons */
+    .btn-link {
+      display:inline-block;
+      padding:0.25rem 0.5rem;
+      font-size:0.75rem; /* text-xs */
+      font-weight:500;
+      background:transparent;
+      color:#000;
+      border:1px solid #F2F2F2; /* thin light outline */
+      transition:color 150ms ease, border-color 150ms ease;
     }
-    /* Fine‑grained tweaks live here */
+    .btn-link:hover {
+      color:#FF3D3E;
+      border-color:#FF3D3E;
+    }
+
+    /* Tag colors */
+    .tag-icml  { background-color: #95DB8F; color: #000; }
+    .tag-rlc   { background-color: #6EB1FF; color: #000; }
+    .tag-spie  { background-color: #FFCD59; color: #000; }
+    .tag-neurips { background-color: #FF3D3E; color: #fff; }
+
+    /* Publication text layout */
+    .pub-block > * { margin-bottom: 0.25rem; } /* small vertical gap */
+    .pub-authors, .pub-venue { line-height: 1.5; }
   </style>
 </head>
-
 <body class="bg-gray-50 text-gray-800 scroll-smooth">
-  <!-- ░░░  NAVBAR  ░░░ -->
+  <!-- Navbar -->
   <header class="fixed inset-x-0 top-0 z-50 bg-white/80 backdrop-blur shadow-md">
     <nav class="mx-auto flex max-w-4xl items-center justify-between p-4 text-sm font-medium">
-      <a href="#home" class="font-bold">Greyson&nbsp;Brothers</a>
-      <div class="space-x-4 hidden sm:block">
-        <a href="#research" class="hover:text-blue-600">Research</a>
-        <a href="#projects" class="hover:text-blue-600">Projects</a>
+      <a href="#home" class="font-bold">Greyson&nbsp;&nbsp;Brothers</a>
+      <div class="hidden space-x-4 sm:block">
+        <a href="#home" class="hover:text-blue-600">Home</a>
         <a href="#publications" class="hover:text-blue-600">Publications</a>
-        <a href="#contact" class="hover:text-blue-600">Contact</a>
+        <!-- <a href="#projects" class="hover:text-blue-600">Projects</a> -->
+        <!-- <a href="#contact" class="hover:text-blue-600">Contact</a> -->
       </div>
     </nav>
   </header>
 
-  <main class="mx-auto max-w-4xl pt-24">
-    <!-- ░░░  HERO  ░░░ -->
-    <section id="home" class="mb-24">
-      <h1 class="text-4xl font-extrabold tracking-tight">Hi, I'm Greyson Brothers</h1>
-      <p class="mt-4 max-w-prose text-lg leading-relaxed">
-        AI/ML researcher interested in reinforcement learning, continual learning, and sample‑efficient methods.
-      </p>
-      <a href="cv.pdf" class="mt-4 inline-block underline">Download full CV (PDF)</a>
+<main class="mx-auto max-w-4xl pt-24">
+    <!-- Hero -->
+    <section id="home" class="mb-24 flex flex-col md:flex-row md:items-start md:gap-8 scroll-mt-24">
+      <!-- Text block -->
+      <div class="flex-1">
+        <h1 class="text-4xl font-extrabold tracking-tight">Greyson &nbsp;Brothers</h1>
+        <p class="mt-4 max-w-prose text-lg leading-relaxed">
+          Hello! I'm an AI/ML researcher at Johns Hopkins University <a href="https://www.jhuapl.edu/" class="underline">Applied Physics Lab</a>. 
+          I'm fortunate to collaborate with <a href="https://johnwinder.ai/" class="underline">Dr.&nbsp;John&nbsp;Winder</a>, 
+          <a href="https://willamannering.weebly.com/" class="underline">Dr.&nbsp;Willa&nbsp;Mannering</a>, 
+          <a href="https://www.cs.umd.edu/people/joshmccl" class="underline">Josh&nbsp;McClellan</a>, and many others across the lab.<br><br>
+          My interests lie at the intersection of deep multi-agent reinforcement learning, continual learning, attention, memory mechanisms, and the hippocampus.
+        </p>
+      </div>
+      <!-- Profile & links -->
+      <aside class="mt-8 md:mt-0 w-full md:w-64 flex-shrink-0 text-center md:text-left">
+        <img src="content/profile.jpeg" alt="Greyson Brothers portrait" class="mx-auto md:mx-0 w-64 h-64 object-cover rounded-full border border-gray-100" />
+        <div class="mt-4 text-sm space-y-2">
+          <div class="flex justify-center items-center gap-4 text-base">
+            <a href="mailto:greysonbrothers@gmail.com" title="Email" class="block">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6 fill-current"><path d="M2 4.5A2.5 2.5 0 0 1 4.5 2h15A2.5 2.5 0 0 1 22 4.5v15a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 19.5v-15Zm2.508.063 7.992 6.105 7.992-6.105A.5.5 0 0 0 20.5 4h-15a.5.5 0 0 0-.492.563Zm-.508 1.97v12.967a.5.5 0 0 0 .5.5h15a.5.5 0 0 0 .5-.5V6.533l-8.242 6.301a.75.75 0 0 1-.916 0L4 6.533Z"/></svg>
+            </a>            
+            <a href="https://github.com/agbrothers" target="_blank" rel="noopener">
+              <img src="content/icon-github.png" alt="GitHub" class="w-6 h-6" />
+            </a>
+            <a href="https://www.linkedin.com/in/gbrothers" target="_blank" rel="noopener">
+              <img src="content/icon-linkedin.png" alt="LinkedIn" class="w-6 h-6" />
+            </a>
+            <a href="https://scholar.google.com/citations?view_op=list_works&hl=en&hl=en" target="_blank" rel="noopener">
+              <img src="content/icon-scholar.png" alt="Google Scholar" class="w-6 h-6" />
+            </a>
+            <a href="content/cv.pdf" download class="font-medium text-lg">
+              <strong>CV</strong>
+            </a>
+          </div>
+        </div>
+      </aside>
     </section>
 
-    <!-- ░░░  RESEARCH INTERESTS  ░░░ -->
-    <section id="research" class="mb-24">
-      <h2 class="text-3xl font-semibold">Research&nbsp;Interests</h2>
-      <ul class="mt-4 list-disc space-y-1 pl-6">
-        <li>Reinforcement Learning</li>
-        <li>Continual Learning</li>
-        <li>Sample Efficiency</li>
-        <li>Self‑Supervised Learning</li>
-        <!-- Add more -->
-      </ul>
-    </section>
-
-    <!-- ░░░  PROJECTS  ░░░ -->
-    <section id="projects" class="mb-24">
-      <h2 class="text-3xl font-semibold">Selected&nbsp;Projects</h2>
-      <div class="mt-6 grid gap-6 md:grid-cols-2">
-        <article class="rounded-xl bg-white p-4 shadow">
-          <h3 class="text-xl font-bold">Adaptive Transformer Pooling</h3>
-          <p class="mt-2 text-sm leading-relaxed">
-            Demonstrated near‑optimal token compression using attention‑based pooling; published at ICML 2025.
-          </p>
-          <div id="diagram1" class="mt-4 h-48 w-full"></div>
+    <!-- Publications -->
+    <section id="publications" class="mb-24 scroll-mt-24">
+      <h2 class="text-3xl font-semibold">Conference&nbsp;Publications</h2>
+      <div class="mt-6 space-y-6">
+        <!-- ICML 2025 -->
+        <article class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md">
+          <div class="flex gap-3">
+            <span class="shrink-0 self-start rounded-md px-2 py-1 text-xs font-semibold tag-icml" style="color: #ebffea;">ICML'25</span>
+            <div class="flex-1 pub-block">
+              <h3 class="font-semibold">Robust Noise Attenuation via Adaptive Pooling of Transformer Outputs</h3>
+              <p class="text-xs text-gray-600 pub-authors"><strong>Greyson&nbsp;Brothers</strong>.</p>
+              <p class="text-xs text-gray-600 italic pub-venue">International Conference on Machine Learning. <span style="color:#FF3D3E;" class="font-semibold">Spotlight&nbsp;(Top&nbsp;2.6% of 12k)</span></p>
+              <div class="flex flex-wrap gap-2 pt-1">
+                <a href="https://arxiv.org/abs/2506.09215" class="btn-link">arXiv</a>
+                <a href="https://openreview.net/forum?id=8JGwoZceQs" class="btn-link">OpenReview</a>
+                <a href="https://icml.cc/virtual/2025/poster/46284" class="btn-link">Presentation</a>
+                <a href="https://icml.cc/media/PosterPDFs/ICML%202025/46284.png" class="btn-link">Poster</a>
+                <a href="https://github.com/agbrothers/pooling" class="btn-link">Code</a>
+              </div>
+            </div>
+          </div>
         </article>
-        <!-- Duplicate <article> blocks for more projects -->
+
+        <!-- RLC 2025 -->
+        <article class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md">
+          <div class="flex gap-3">
+            <span class="shrink-0 self-start rounded-md px-2 py-1 text-xs font-semibold tag-rlc" style="color: #d1f5ff;">RLC'25</span>
+            <div class="flex-1 pub-block">
+              <h3 class="font-semibold">PEnGUiN: Partially Equivariant Graph NeUral Networks for Sample-Efficient&nbsp;MARL</h3>
+              <p class="text-xs text-gray-600 pub-authors">Joshua&nbsp;McClellan, <strong>Greyson&nbsp;Brothers</strong>, Furong&nbsp;Huang, Pratap&nbsp;Tokekar.</p>
+              <p class="text-xs text-gray-600 italic pub-venue">Reinforcement Learning Conference</p>
+              <div class="flex flex-wrap gap-2 pt-1">
+                <a href="https://arxiv.org/abs/2503.15615" class="btn-link">arXiv</a>
+                <a href="https://openreview.net/forum?id=SpfX0amuzi" class="btn-link">OpenReview</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- SPIE 2025 -->
+        <article class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md">
+          <div class="flex gap-3">
+            <span class="shrink-0 self-start rounded-md px-2 py-1 text-xs font-semibold tag-spie" style="color: #fff7e3;">SPIE'25</span>
+            <div class="flex-1 pub-block">
+              <h3 class="font-semibold">Beyond Human Reasoning: Bridging the Human-Machine Information Gap</h3>
+              <p class="text-xs text-gray-600 pub-authors">John&nbsp;Winder, Willa&nbsp;Mannering, <strong>Greyson&nbsp;Brothers</strong>, et&nbsp;al.</p>
+              <p class="text-xs text-gray-600 italic pub-venue">SPIE Defense&nbsp;+ Commercial Sensing</p>
+              <div class="flex flex-wrap gap-2 pt-1">
+                <a href="https://www.spiedigitallibrary.org/conference-proceedings-of-spie/13473/1347309/Beyond-human-reasoning-bridging-the-human-machine-information-gap/10.1117/12.3053414.short" class="btn-link">Proceedings</a>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Workshops -->
+      <h2 class="mt-12 text-3xl font-semibold">Workshop&nbsp;Publications</h2>
+      <div class="mt-6 space-y-6">
+        <!-- ICML WS 2025 -->
+        <article class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md">
+          <div class="flex gap-3">
+            <span class="shrink-0 self-start rounded-md px-2 py-1 text-xs font-semibold tag-icml" style="color: #ebffea;">ICML'25&nbsp;WS</span>
+            <div class="flex-1 pub-block">
+              <h3 class="font-semibold">Robust Noise Attenuation via Adaptive Pooling of Transformer Outputs</h3>
+              <p class="text-xs text-gray-600 pub-authors"><strong>Greyson&nbsp;Brothers</strong>.</p>
+              <p class="text-xs text-gray-600 italic pub-venue">ICML Tokenization Workshop&nbsp;2025 (dual submission with main track above)</p>
+              <div class="flex flex-wrap gap-2 pt-1">
+                <a href="https://arxiv.org/abs/2506.09215" class="btn-link">arXiv</a>
+                <a href="https://openreview.net/forum?id=yRJpS6exNA" class="btn-link">OpenReview</a>
+                <a href="https://tokenization-workshop.github.io/" class="btn-link">Workshop</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- NeurIPS WS 2024 -->
+        <article class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md">
+          <div class="flex gap-3">
+            <span class="shrink-0 self-start rounded-md px-2 py-1 text-xs font-semibold tag-neurips" style="color: #ffe2e2;">NeurIPS'24&nbsp;WS</span>
+            <div class="flex-1 pub-block">
+              <h3 class="font-semibold">Robust Noise Attenuation via Adaptive Pooling of Transformer Outputs</h3>
+              <p class="text-xs text-gray-600 pub-authors"><strong>Greyson&nbsp;Brothers</strong>, Willa Mannering, Amber Tien, John Winder.</p>
+              <p class="text-xs text-gray-600 italic pub-venue">NeurIPS Workshop on Foundation Model Interventions&nbsp;2025</p>
+              <div class="flex flex-wrap gap-2 pt-1">
+                <a href="https://arxiv.org/abs/2412.05768" class="btn-link">arXiv</a>
+                <a href="https://openreview.net/forum?id=ceLabCFfxh" class="btn-link">OpenReview</a>
+                <a href="https://neurips.cc/media/neurips-2024/Slides/104082.pdf" class="btn-link">Poster</a>
+                <a href="https://sites.google.com/view/mint-2024" class="btn-link">Workshop</a>
+              </div>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
-
-    <!-- ░░░  PUBLICATIONS  ░░░ -->
-    <section id="publications" class="mb-24">
-      <h2 class="text-3xl font-semibold">Publications</h2>
-      <ol class="mt-4 list-decimal space-y-1 pl-6 text-sm leading-relaxed">
-        <li><strong>Robust Noise Attenuation via Adaptive Pooling of Transformer Outputs</strong>, ICML 2025 – Spotlight.</li>
-        <!-- Add more entries -->
-      </ol>
-    </section>
-
-    <!-- ░░░  CONTACT  ░░░ -->
-    <section id="contact" class="mb-24">
-      <h2 class="text-3xl font-semibold">Get&nbsp;in&nbsp;Touch</h2>
-      <p class="mt-4 text-sm">
-        Email: <a href="mailto:greysonbrothers@gmail.com" class="underline">greysonbrothers@gmail.com</a><br />
-        GitHub: <a href="https://github.com/agbrothers" class="underline">agbrothers</a>
-      </p>
-    </section>
-  </main>
-
-  <footer class="bg-white py-6 text-center text-xs text-gray-500">
-    © <span id="year"></span> Greyson Brothers
-  </footer>
-
-  <!-- ░░░  LIBRARIES  ░░░ -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
-
-  <!-- ░░░  SCRIPTS  ░░░ -->
-  <script>
-    // Dynamic copyright year
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // Minimal interactive example (D3.js)
-    const svg = d3.select("#diagram1").append("svg").attr("viewBox", "0 0 300 150");
-    svg
-      .append("circle")
-      .attr("cx", 75)
-      .attr("cy", 75)
-      .attr("r", 30)
-      .attr("fill", "#60a5fa")
-      .on("mouseover", function () {
-        d3.select(this).attr("fill", "#2563eb");
-      })
-      .on("mouseout", function () {
-        d3.select(this).attr("fill", "#60a5fa");
-      });
-  </script>
-</body>
-</html>
