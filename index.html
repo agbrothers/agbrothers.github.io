@@ -36,6 +36,20 @@
     .tag-rlc   { background-color: #6EB1FF; color: #000; }
     .tag-spie  { background-color: #FFCD59; color: #000; }
     .tag-neurips { background-color: #FF3D3E; color: #fff; }
+    .tag-icml-ws  { background-color: #95DB8F; color: #000; }
+    .tag-neurips-ws { background-color: #FF3D3E; color: #fff; }
+
+    /* Uniform tag width */
+    .tag-icml,.tag-rlc,.tag-spie {
+      display:inline-block;
+      width:4rem; /* same width for all tags */
+      text-align:center;
+    }
+    .tag-icml-ws,.tag-neurip-ws {
+      display:inline-block;
+      width:7rem; /* same width for all tags */
+      text-align:center;
+    }
 
     /* Publication text layout */
     .pub-block > * { margin-bottom: 0.25rem; } /* small vertical gap */
@@ -104,9 +118,9 @@
       <h2 class="text-3xl font-semibold">Conference&nbsp;Publications</h2>
       <div class="mt-6 space-y-6">
         <!-- ICML 2025 -->
-        <article class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md">
+        <article class="lg border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md">
           <div class="flex gap-3">
-            <span class="shrink-0 self-start rounded-md px-2 py-1 text-xs font-semibold tag-icml" style="color: #ebffea;">ICML'25</span>
+            <span class="shrink-0 self-start md px-2 py-1 text-xs font-semibold tag-icml" style="color: #ebffea;">ICML'25</span>
             <div class="flex-1 pub-block">
               <h3 class="font-semibold">Robust Noise Attenuation via Adaptive Pooling of Transformer Outputs</h3>
               <p class="text-xs text-gray-600 pub-authors"><strong>Greyson&nbsp;Brothers</strong>.</p>
@@ -123,9 +137,9 @@
         </article>
 
         <!-- RLC 2025 -->
-        <article class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md">
+        <article class="lg border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md">
           <div class="flex gap-3">
-            <span class="shrink-0 self-start rounded-md px-2 py-1 text-xs font-semibold tag-rlc" style="color: #d1f5ff;">RLC'25</span>
+            <span class="shrink-0 self-start md px-2 py-1 text-xs font-semibold tag-rlc" style="color: #d1f5ff;">RLC'25</span>
             <div class="flex-1 pub-block">
               <h3 class="font-semibold">PEnGUiN: Partially Equivariant Graph NeUral Networks for Sample-Efficient&nbsp;MARL</h3>
               <p class="text-xs text-gray-600 pub-authors">Joshua&nbsp;McClellan, <strong>Greyson&nbsp;Brothers</strong>, Furong&nbsp;Huang, Pratap&nbsp;Tokekar.</p>
@@ -140,9 +154,9 @@
         </article>
 
         <!-- SPIE 2025 -->
-        <article class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md">
+        <article class="lg border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md">
           <div class="flex gap-3">
-            <span class="shrink-0 self-start rounded-md px-2 py-1 text-xs font-semibold tag-spie" style="color: #fff7e3;">SPIE'25</span>
+            <span class="shrink-0 self-start md px-2 py-1 text-xs font-semibold tag-spie" style="color: #fff7e3;">SPIE'25</span>
             <div class="flex-1 pub-block">
               <h3 class="font-semibold">Beyond Human Reasoning: Bridging the Human-Machine Information Gap</h3>
               <p class="text-xs text-gray-600 pub-authors">John&nbsp;Winder, Willa&nbsp;Mannering, <strong>Greyson&nbsp;Brothers</strong>, Anish Nayak, Justin Harsono, Noah Ford, Naveed Haghani, Thomas Urban.</p>
@@ -159,9 +173,9 @@
       <h2 class="mt-12 text-3xl font-semibold">Workshop&nbsp;Publications</h2>
       <div class="mt-6 space-y-6">
         <!-- ICML WS 2025 -->
-        <article class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md">
+        <article class="lg border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md">
           <div class="flex gap-3">
-            <span class="shrink-0 self-start rounded-md px-2 py-1 text-xs font-semibold tag-icml" style="color: #ebffea;">ICML'25&nbsp;WS</span>
+            <span class="shrink-0 self-start md px-2 py-1 text-xs font-semibold tag-icml-ws" style="color: #ebffea;">ICML'25&nbsp;WS</span>
             <div class="flex-1 pub-block">
               <h3 class="font-semibold">Robust Noise Attenuation via Adaptive Pooling of Transformer Outputs</h3>
               <p class="text-xs text-gray-600 pub-authors"><strong>Greyson&nbsp;Brothers</strong>.</p>
@@ -176,9 +190,9 @@
         </article>
 
         <!-- NeurIPS WS 2024 -->
-        <article class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md">
+        <article class="lg border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md">
           <div class="flex gap-3">
-            <span class="shrink-0 self-start rounded-md px-2 py-1 text-xs font-semibold tag-neurips" style="color: #ffe2e2;">NeurIPS'24&nbsp;WS</span>
+            <span class="shrink-0 self-start md px-2 py-1 text-xs font-semibold tag-neurips-ws" style="color: #ffe2e2;">NeurIPS'24&nbsp;WS</span>
             <div class="flex-1 pub-block">
               <h3 class="font-semibold">Uncovering Uncertainty in Transformer Inference</h3>
               <p class="text-xs text-gray-600 pub-authors"><strong>Greyson&nbsp;Brothers</strong>, Willa Mannering, Amber Tien, John Winder.</p>
