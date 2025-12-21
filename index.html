@@ -50,7 +50,13 @@
       display:flex;
       justify-content:center;
     }
-
+    .body-text{
+      font-size: 1rem;          /* change this freely */
+      line-height: 1.5;
+      text-align: justify;       /* the actual justify setting */
+      text-justify: inter-word;  /* optional: nicer spacing where supported */
+      hyphens: auto;             /* optional: helps justification look better */
+    }
     /* Publication text layout */
     .pub-block > * { margin-bottom: 0.25rem; } /* small vertical gap */
     .pub-authors, .pub-venue { line-height: 1.5; }
@@ -63,8 +69,8 @@
       <a href="#home" class="font-bold">Greyson&nbsp;&nbsp;Brothers</a>
       <div class="hidden space-x-4 sm:block">
         <a href="#home" class="hover:text-blue-600">Home</a>
+        <a href="#projects" class="hover:text-blue-600">Projects</a>
         <a href="#publications" class="hover:text-blue-600">Publications</a>
-        <!-- <a href="#projects" class="hover:text-blue-600">Projects</a> -->
         <!-- <a href="#contact" class="hover:text-blue-600">Contact</a> -->
       </div>
     </nav>
@@ -76,8 +82,8 @@
       <!-- Text block -->
       <div class="flex-1">
         <h1 class="text-4xl font-extrabold tracking-tight">Greyson &nbsp;Brothers</h1>
-        <p class="mt-4 max-w-prose text-lg leading-relaxed">
-          I am an AI/ML researcher with nearly 5 years of experience at Johns Hopkins University <a href="https://www.jhuapl.edu/" class="underline">Applied Physics Lab</a>. 
+        <p class="mt-4 body-text">
+          I'm an AI/ML researcher with around 5 years of experience at Johns Hopkins University <a href="https://www.jhuapl.edu/" class="underline">Applied Physics Lab</a>. 
           I actively collaborate on autonomy research with <a href="https://johnwinder.ai/" class="underline">Dr.&nbsp;John&nbsp;Winder</a>, 
           <a href="https://willamannering.weebly.com/" class="underline">Dr.&nbsp;Willa&nbsp;Mannering</a>, 
           <a href="https://www.cs.umd.edu/people/joshmccl" class="underline">Josh&nbsp;McClellan</a>, and many others across the lab.<br><br>
@@ -113,6 +119,59 @@
       </aside>
     </section>
 
+
+    <!-- Projects -->
+    <section id="projects" class="mb-24 scroll-mt-24">
+      <h2 class="text-3xl font-semibold">Projects</h2>
+
+      <div class="mt-6 space-y-6">
+        <!-- === Project 1 === -->
+        <article>
+          <!-- wide looping video -->
+          <a href="https://www.desmos.com/3d/wvpffnqwbk" title="Desmos">
+            <video
+              src="content/assoc-mem-loop.mp4"  
+              class="w-full rounded-lg shadow"
+              autoplay
+              loop
+              muted
+              playsinline
+            ></video>
+          </a> 
+          <!-- blurb -->
+          <br/>
+          <h3 class="text-xl font-bold">An interactive associative memory. </h3> <!-- <a href="https://www.desmos.com/3d/wvpffnqwbk" title="Desmos" style="color:#FF3D3E;" class="underline">Try it</a>   -->
+          <p class="mt-3 body-text">
+          <!-- class="mt-4 max-w-prose text-justify text-lg leading-relaxed"> -->
+            Human memory is governed by association. We tend to remember things that are highly related 
+            to, or associated with, what we are currently seeing, hearing, thinking, and so on. To 
+            demonstrate how models of associative memory work to my colleagues, I started tinkering 
+            on a live 3D visualization tool. After falling down a Desmos rabbit hole, I found it very 
+            helpful for reinforcing my own understanding, and I think it might be useful for anyone else 
+            trying to build a stronger intuition for how they work. 
+            
+            <br/><br/>
+            
+            As shown above, we model memories (the light blue points) as attractors, each surrounded 
+            by a big well, called a basin of attraction. Our current state of mind (the red point) follows 
+            the slope of the wells downward, being pulled towards the most similar memory. This closely 
+            resembles planets and gravity wells, with our thoughts following trajectories through memory 
+            space. 
+
+            <br/><br/>
+
+            The implementation in Desmos follows the generalized dense associative memory formula outlined 
+            in the ICML 2025 tutorial on <a href="https://arxiv.org/pdf/2507.06211" title="Desmos" class="underline"><em>
+            Modern Methods in Associative Memory</em></a> by Krotov et al., and lets you easily swap out different 
+            similarity functions, separation functions, memories, temperature, and queries to see their 
+            influence on the energy landscape and recall dynamics in real time. <span style="color:#FF3D3E;" class="font-semibold">Click on the video above </span> to 
+            open the interactive plot in Desmos and customize the memory landscape to your liking. 
+          </p>
+        </article>
+      </div>
+    </section>
+
+
     <!-- Publications -->
     <section id="publications" class="mb-24 scroll-mt-24">
       <h2 class="text-3xl font-semibold">Conference&nbsp;Publications</h2>
@@ -126,7 +185,7 @@
             <div class="flex-1 pub-block">
               <h3 class="font-semibold">Robust Noise Attenuation via Adaptive Pooling of Transformer Outputs</h3>
               <p class="text-xs text-gray-600 pub-authors"><strong>Greyson&nbsp;Brothers</strong>.</p>
-              <p class="text-xs text-gray-600 italic pub-venue">International Conference on Machine Learning,&nbsp;ICML 2025. <span style="color:#FF3D3E;" class="font-semibold">Spotlight&nbsp;(Top&nbsp;2.6% of 12k)</span></p>
+              <p class="text-xs text-gray-600 italic pub-venue">International Conference on Machine Learning,&nbsp;ICML 2025. <span style="color:#FF3D3E;"><span class="font-bold">Spotlight</span>&nbsp;(Top&nbsp;2.6% of 12k submissions)</span></p>
               <div class="flex flex-wrap gap-2 pt-1">
                 <a href="https://arxiv.org/abs/2506.09215" class="btn-link">arXiv</a>
                 <a href="https://openreview.net/forum?id=8JGwoZceQs" class="btn-link">OpenReview</a>
