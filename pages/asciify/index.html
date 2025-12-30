@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Associative Memory | Greyson Brothers</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../../styles.css" />
+</head>
+
+<body class="bg-gray-50 text-gray-800 scroll-smooth">
+  <!-- Simple header (you can copy your main navbar later if you want) -->
+  <header class="mx-auto max-w-4xl p-4">
+    <a href="../../" class="font-bold hover:underline">← Home</a>
+  </header>
+
+  <main class="mx-auto max-w-4xl px-4 pb-16">
+    <!-- HEADER -->
+    <h1 class="text-4xl font-extrabold tracking-tight mt-6">
+      Image to ASCII Conversion
+    </h1>
+    <!-- SUB HEADER -->
+    <div class="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-2">
+        <em class="body-text">Using convolutions and associative memory.</em>
+        <a class="btn-link" href="https://github.com/agbrothers/asciify" target="_blank" rel="noopener">GitHub</a>
+        <em class="ml-auto text-sm text-gray-500 whitespace-nowrap">Dec 28, 2025.</em>
+    </div>
+    
+    <hr class="w-[100%] my-4 mx-auto border-gray-200">    
+    <p align="center">
+        <a href="github.com/agbrothers/asciify" title="GitHub">
+            <span style="display:flex; justify-content:center; gap:16px; align-items:flex-start; flex-wrap:wrap;">
+                <img src="content/steve-jobs.png" width="49%" style="max-width:49%; height:auto;" />
+                <img src="content/steve-jobs-ascii.png" width="49%" style="max-width:49%; height:auto;" />
+            </span>
+        </a>
+    </p>
+
+    <hr class="w-[100%] my-4 mx-auto border-gray-200">
+    <div class="codeblock">
+        <button class="copy-btn" type="button" aria-label="Copy code">Copy</button>
+        <pre><code>pip install "git+https://github.com/agbrothers/asciify.git"</code></pre>
+    </div>
+
+    <!-- HEADER VIDEO -->
+    <!-- <div class="mt-8">
+      <video
+        src="content/surface-video-ascii.mp4"
+        class="w-full rounded-lg shadow"
+        autoplay
+        loop
+        muted
+        playsinline
+        controls
+      ></video>
+      <p class="mt-2 text-sm text-gray-600">
+        Caption / explanation of what the viewer is seeing.
+      </p>
+    </div> -->
+
+
+    <!-- BODY -->
+    <section class="mt-10">
+        <!-- OVERVIEW -->
+        <h2 class="text-2xl font-semibold">Overview</h2>
+        <p class="mt-3 body-text">
+            In an effort to clean up old code, I recently reworked an image-to-ASCII script I made years ago. 
+            My goals were to make the code both more effective (better quality conversions) and more efficient 
+            (able to convert live video streams). In doing so, I made a number of surprising connections to machine 
+            learning concepts I've learned since originally solving this problem. Namely, (1) this whole algorithm
+            can be mapped onto a broader class of key-value memories, and (2) the conversion can be sped up
+            significantly by using 2D convolutions. In fact, the whole process can be viewed simply as pixel-character
+            association in an embedding space. Below is a visual guide through this process. 
+        </p><br/>
+
+        <!-- CHARACTER ENCODING -->
+        <hr class="w-[95%] my-4 mx-auto border-gray-200">
+        <p align="center">
+            <img src="content/ascii-kv.svg" width="60%" />
+        </p>
+        <hr class="w-[95%] my-4 mx-auto border-gray-200">
+
+        <!-- HOW IT WORKS -->
+        <h2 class="text-2xl font-semibold">How it works</h2>
+        <p class="mt-3 body-text">
+            For each patch of pixels in an image, our goal is to retrieve the the ASCII character with the most similar 
+            shape and brightness. First, we define a palette: the set of ASCII characters we want to use to paint our 
+            picture. We render each character in our palette to obtain a glyph, a 2D array of the character in pixels. 
+            These are 15x8 pixels using default size 12 Menlo font. 
+            <!-- We store the set of glyphs as the values of our memory, the things we 
+            ultimately want to retrieve. -->
+
+            <!-- 1. Render each character as a 2D array called a glyph, ~15x8 pixels with the default font size. 
+
+            2. Apply a hand-crafted 2D convolution to each glyph to pull out a feature vector corresponding to the character's shape and brightness. *NOTE*: We use a kernel with the same dimensions and stride of each character glyph.  
+
+            3. Store the set of convolutional feature vectors as keys and the glyph arrays as values in a hetero-associative memory.  -->
+        </p><br/>
+        
+        <p class="mt-3 body-text">
+            Just like a hash table, or dictionary, we want to store our characters as a set of key-value pairs. In this
+            case, the values are our glyphs, the items we ultimately want to retrieve. Keys, on the other hand, are usually
+            simple descriptors used to access the corresponding value, like an address. For this application, we want our
+            keys to be lightweight numerical descriptions of the brightness and shape of each character, so that we can use
+            a kind of similarity metric with pixel patches to facilitate fast lookup. 
+        </p><br/>
+        <p class="mt-3 body-text">
+            A well known method for extracting descriptive features from pixels to use 2D convolutions  <a href="#ref-1">[1]</a>. 
+            This involves taking a set of filters that, when applied to a patch of pixels, returns a scalar value indicating 
+            the presence of some feature, like a line, a curve, or even higher level features like faces. The latter requires 
+            a more sophisticated architecture and learning procedure. In our case, simple hand-crafted filters looking for 
+            character-esque shapes will do. We set our filters to be the exact same size as our character glyphs so that each 
+            filter computes a single feature per character. We use 34 different filters designed to detect horizontal lines, 
+            vertical lines, diagonal lines, and circles in different parts of the glyph, as wel as overall brightness. The 
+            resulting feature vectors are stored as keys, as shown above. With this, our ASCII memory is ready for action. 
+        </p><br/>
+
+
+        <!-- IMAGE ENCODING -->
+        <hr class="w-[95%] my-4 mx-auto border-gray-200">
+        <p align="center">
+            <img src="content/ascii-q.svg" width="60%" />
+        </p>
+        <hr class="w-[95%] my-4 mx-auto border-gray-200">
+        <p class="mt-3 body-text">
+            Now we need to figure out how to compare our input image with our keys. Similar to the way a vision transformer 
+            processes images, we can just partition each frame into a set of patches <a href="#ref-2">[2]</a>. By setting 
+            these patches to be the same size as our glyphs, we can conventiently use the same convolutional filters to extract
+            patch features as shown above. This also allows us to easily swap patches for glyphs as shown in the animation below.  
+            [TODO]
+
+            <!-- The mapping 
+            function applies a hand-crafted 2D convolution to transform each patch into 
+            a 6-dimensional representation. Ahead of time, we pre-render each character 
+            into pixel space, then apply a separate 2D kernel to get 6-dimensional 
+            representations for the whole ascii character palette being used. The final 
+            step simpling maps each patch to the most similar character in our 
+            representation space, using euclidean distance. 
+
+            4. Given an image, partition it into patches the size of our character glyphs. Apply the convolution to each patch to generate a query feature vector.  -->
+        </p><br/>
+
+        <!-- CHARACTER RECALL -->
+        <hr class="w-[95%] my-4 mx-auto border-gray-200">    
+        <p align="center">
+            <a href="github.com/agbrothers/asciify" title="GitHub">
+                <span style="display:flex; justify-content:center; gap:16px; align-items:flex-start; flex-wrap:wrap;">
+                    <video 
+                        src="content/einstein-ascii.mp4" 
+                        width="45%" 
+                        style="max-width:45%; height:auto;" 
+                        autoplay
+                        loop
+                        muted
+                        playsinline
+                        controls                
+                    ></video>
+                    <img src="content/ascii-association.svg" width="49%" style="max-width:49%; height:auto;" />
+                </span>
+            </a>
+        </p>
+        <hr class="w-[95%] my-4 mx-auto border-gray-200">
+
+        <p class="mt-3 body-text">
+            [TODO]
+            5. Compute the similarity between the queries and keys in the ASCII memory (negative distance by default), then retrieve the most similar glyph. 
+
+            6. Insert the retrieved glyphs where each query patch used to be, yielding the converted image.         
+        </p>
+        
+        <!-- <p class="mt-3 body-text">
+            The image partitioning and embedding process almost exactly mirrors what is done in vision transformers. 
+
+            The process of looking up embeddings from the input patches is highly similar to the core of a VQ-VAE. 
+
+            In this implementation, we use hard, one-step association rather than computing smooth steps over time 
+            until convergence. This is because we care more about (1) efficiency, (2) always retrieving an exact 
+            "memory", or glyph. With more general associative memory formulations with soft association, we can end 
+            up retrieving a spurious combination of multiple memories if their keys are close together in the 
+            embedding space.  
+        </p> -->
+
+        <!-- LIMITATIONS -->
+        <br/><h2 class="text-2xl font-semibold">Room for Improvement</h2>
+
+        <p class="mt-3 body-text">
+            Since we are using hard association, a.k.a. nearest neighbor lookup, our character embedding space resembles a high-dimensional 
+            voronoi diagram, as shown in the image below. Each light blue point corresponds to an embedded character,
+            and each character has a basin of attraction around it that "captures" any pixel patches that get mapped
+            into it. 
+        </p><br/>
+
+        <!-- VORONOI DIAGRAMS -->
+        <hr class="w-[99%] my-4 mx-auto border-gray-200">
+        <p align="center">
+            <span style="display:flex; justify-content:center; gap:16px; align-items:flex-start; flex-wrap:wrap;">
+                <img src="content/voronoi.png" width="46%" style="max-width:46%; height:auto;" />
+                <img src="content/voronoi-char.png" width="51.5%" style="max-width:51.5%; height:auto;" />
+            </span>
+        </p>        
+        <hr class="w-[99%] my-4 mx-auto border-gray-200">
+
+        <p class="mt-3 body-text">
+            Why is this a limitation? Well, if you look at the points towards the edge of the space, you'll notice 
+            that they have massive, unbounded basins of attraction. In our space, these correspond to the 
+            heavier, darker characters, like "#", "N", "B", and "Q". Why is this? If we think about how we embed 
+            the characters, we apply convolutional filters which look for any non- ... [TODO]
+        </p><br/>
+
+        <p class="mt-3 body-text">
+            [TODO] Each axis here represents the activation of different filters in our convolutional kernel. With images,
+            white pixels have a normalized value of 1 and black pixels 0. Thus, if a feature is being 
+
+            </br></br>So, how can we remedy this? </br>
+        </p><br/>
+    
+        <ol class="list-decimal pl-6 space-y-2 mt-3 body-text">
+            <li><strong>Add more characters to the palette.</strong> Specifically, adding a larger diversity of heavier, bolder 
+                characters to increase competition in the dark region near the origin. </li>
+            <li><strong>Define a better kernel.</strong> Perhaps even separate kernels for embedding pixels and characters. The ideal 
+                character kernel should result in as even of a tiling of the embedding space as possible. Perhaps this 
+                is an area where a learning algorithm could yield a strong result.</li>
+            <li><strong>Image preprocessing.</strong> Rather than making our character embedding space more uniform with respect to the 
+                embedded pixel patches, we can squishing our pixel space to map more uniformly to our characters through methods like
+                increasing exposure or contrast.</li>
+        </ol><br/>
+
+        <p class="mt-3 body-text">
+            In the current implementation, (2) is set by hand, while (1) and (3) are left up to user input. There is much room for improvement in all three of areas. 
+        </p><br/>
+
+
+
+        <!-- REFERENCES -->
+        <br/><h2 class="text-2xl font-semibold">References</h2>
+
+        <ol class="mt-4 list-decimal pl-6 space-y-2 body-text">
+            
+            <li id="ref-1">
+                <a href="http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf">
+                    <!-- Author. <em>Title</em>. Venue, Year. -->
+                    Y. LeCun, L. Bottou, Y. Bengio, and P. Haffner. 
+                    <em>Gradient Based Learning Applied to Document Recognition</em>. 
+                    Proceedings of the IEEE Conference on Computer Vision, 1998.
+                </a>
+            </li>
+            <li id="ref-2">
+                <a href="https://arxiv.org/pdf/2010.11929">
+                    <!-- Author. <em>Title</em>. Venue, Year. -->
+                    A. Dosovitskiy, L. Beyer, A. Kolesnikov, D. Weissenborn, X. Zhai, T. Unterthiner, M. Dehghani, M. Minderer, G. Heigold, S. Gelly, J. Uszkoreit, and N. Houlsby.
+                    <em>An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale</em>. 
+                    International Conference on Learning Representations, 2021. 
+                </a>
+            </li>
+            <li id="ref-3">
+                <a href="https://arxiv.org/pdf/2010.11929">
+                    <!-- Author. <em>Title</em>. Venue, Year. -->
+                    A. Oord, O. Vinyals, and K. Kavukcuoglu.
+                    <em>Neural Discrete Representation Learning</em>. 
+                    Neural Information Processing Systems, 2017. 
+                </a>
+            </li>
+        </ol>
+
+
+
+
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener("click", async (e) => {
+      const btn = e.target.closest(".copy-btn");
+      if (!btn) return;
+
+      const code = btn.parentElement.querySelector("code");
+      if (!code) return;
+
+      const text = code.innerText;
+
+      try {
+        await navigator.clipboard.writeText(text);
+        const prev = btn.textContent;
+        btn.textContent = "Copied!";
+        setTimeout(() => (btn.textContent = prev), 1200);
+      } catch (err) {
+        // Fallback: select text so the user can manually copy
+        const range = document.createRange();
+        range.selectNodeContents(code);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        btn.textContent = "Select ⌘C";
+        setTimeout(() => (btn.textContent = "Copy"), 1200);
+      }
+    });
+  </script>
+
+</body>
+</html>
