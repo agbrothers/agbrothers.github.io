@@ -1,0 +1,97 @@
+@font-face {
+  font-family: "YourCustomFont";
+  src: url("fonts/YourCustomFont.woff2") format("woff2"),
+       url("fonts/YourCustomFont.woff") format("woff");
+  font-display: swap;
+}
+
+body {
+  font-family: "YourCustomFont", ui-sans-serif, system-ui;
+}
+
+/* CUSTOM BUTTONS */
+.btn-link {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem; /* text-xs */
+  font-weight: 500;
+  background: transparent;
+  color: #000;
+  border: 1px solid #F2F2F2; /* thin light outline */
+  transition: color 150ms ease, border-color 150ms ease;
+}
+.btn-link:hover {
+  color: #FF3D3E;
+  border-color: #FF3D3E;
+}
+
+/* TAG COLORS */
+.tag-icml { background-color: #95DB8F; color: #000; }
+.tag-rlc { background-color: #6EB1FF; color: #000; }
+.tag-spie { background-color: #FFCD59; color: #000; }
+.tag-neurips { background-color: #FF3D3E; color: #fff; }
+
+/* UNIFORM TAG WIDTH */
+.tag-icml, .tag-rlc, .tag-spie {
+  display: inline-block;
+  width: 4rem; /* same width for all tags */
+  text-align: center;
+}
+
+/* TAG LAYOUT: fixed left column, colored tag stays compact */
+.tag-wrapper {
+  width: 5rem; /* consistent left offset */
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.body-text {
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+
+/* PUBLICATION TEXT LAYOUT */
+.pub-block > * { margin-bottom: 0.25rem; }
+.pub-authors, .pub-venue { line-height: 1.5; }
+
+/* CODE BLOCK */
+.codeblock {
+  position: relative;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  background: #0b1020; /* dark-ish */
+  overflow: hidden;
+}
+
+.codeblock pre {
+  margin: 0;
+  padding: 1rem 1rem;
+  overflow-x: auto;
+}
+
+.codeblock code {
+  color: #e5e7eb;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.95rem;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.08);
+  color: #e5e7eb;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.copy-btn:hover {
+  background: rgba(255,255,255,0.14);
+}
