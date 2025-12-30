@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Associative Memory | Greyson Brothers</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../../styles.css" />
+</head>
+
+<body class="bg-gray-50 text-gray-800 scroll-smooth">
+  <!-- Simple header (you can copy your main navbar later if you want) -->
+  <header class="mx-auto max-w-4xl p-4">
+    <a href="../../" class="font-bold hover:underline">← Home</a>
+  </header>
+
+  <main class="mx-auto max-w-4xl px-4 pb-16">
+    <h1 class="text-4xl font-extrabold tracking-tight mt-6">
+      An interactive associative memory
+    </h1>
+
+    <p class="mt-4 body-text">
+      With Desmos 3D
+    </p>
+    
+    <div class="mt-8">
+        <a href="https://www.desmos.com/3d/wvpffnqwbk" title="Desmos">
+            <video
+            src="content/assoc-mem-loop.mp4"
+            class="w-full rounded-lg shadow"
+            autoplay
+            loop
+            muted
+            playsinline
+            controls
+            ></video>
+        </a>
+        <p class="mt-2 text-sm text-gray-600">
+            The energy landscape of an associative memory. 
+        </p>
+    </div>
+    
+        <p class="mt-4 body-text">
+            Human memory is governed by association. We tend to remember things that are highly related 
+            to, or associated with, what we are currently seeing, hearing, thinking, and so on. To 
+            demonstrate how models of associative memory work to my colleagues, I started tinkering 
+            on a live 3D visualization tool. After falling down a Desmos rabbit hole, I found it very 
+            helpful for reinforcing my own understanding, and I think it might be useful for anyone else 
+            trying to build a stronger intuition for how they work. 
+            
+            <br/><br/>
+            
+            As shown above, we model memories (the light blue points) as attractors, each surrounded 
+            by a big well, called a basin of attraction. Our current state of mind (the red point) follows 
+            the slope of the wells downward, being pulled towards the most similar memory. This closely 
+            resembles planets and gravity wells, with our thoughts following trajectories through memory 
+            space. 
+
+            <br/><br/>
+
+            The implementation in Desmos follows the generalized dense associative memory formula outlined 
+            in the ICML 2025 tutorial on <a href="https://arxiv.org/pdf/2507.06211" title="Desmos" class="underline"><em>
+            Modern Methods in Associative Memory</em></a> by Krotov et al., and lets you easily swap out different 
+            similarity functions, separation functions, memories, temperature, and queries to see their 
+            influence on the energy landscape and recall dynamics in real time. <span style="color:#FF3D3E;" class="font-semibold">Click on the video above </span> to 
+            open the interactive plot in Desmos and customize the memory landscape to your liking. 
+        </p>
+    
+  </main>
+</body>
+</html>
