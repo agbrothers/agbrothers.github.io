@@ -29,7 +29,7 @@
     
     <hr class="w-[100%] my-4 mx-auto border-gray-200">    
     <p align="center">
-        <a href="github.com/agbrothers/asciify" title="GitHub">
+        <a href="https://github.com/agbrothers/asciify" title="GitHub">
             <span style="display:flex; justify-content:center; gap:16px; align-items:flex-start; flex-wrap:wrap;">
                 <img src="content/steve-jobs.png" width="49%" style="max-width:49%; height:auto;" />
                 <img src="content/steve-jobs-ascii.png" width="49%" style="max-width:49%; height:auto;" />
@@ -68,7 +68,7 @@
             In an effort to clean up old code, I recently reworked an image-to-ASCII script I made years ago. 
             My goals were to make the code both more effective (better quality conversions) and more efficient 
             (able to convert live video streams). In doing so, I made a number of surprising connections to machine 
-            learning concepts I've learned since originally solving this problem. Namely, (1) this whole algorithm
+            learning concepts I've gained experience with in the years since. Namely, (1) this whole algorithm
             can be mapped onto a broader class of key-value memories, and (2) the conversion can be sped up
             significantly by using 2D convolutions. In fact, the whole process can be viewed simply as pixel-character
             association in an embedding space. Below is a visual guide through this process. 
@@ -128,7 +128,7 @@
             processes images, we can just partition each frame into a set of patches <a href="#ref-2">[2]</a>. By setting 
             these patches to be the same size as our glyphs, we can conventiently use the same convolutional filters to extract
             patch features as shown above. This also allows us to easily swap patches for glyphs as shown in the animation below.  
-            [TODO]
+            [TODO] Filters are normalized, max output 1 when all white, min is zero when all black. 
 
             <!-- The mapping 
             function applies a hand-crafted 2D convolution to transform each patch into 
@@ -144,21 +144,19 @@
         <!-- CHARACTER RECALL -->
         <hr class="w-[95%] my-4 mx-auto border-gray-200">    
         <p align="center">
-            <a href="github.com/agbrothers/asciify" title="GitHub">
-                <span style="display:flex; justify-content:center; gap:16px; align-items:flex-start; flex-wrap:wrap;">
-                    <video 
-                        src="content/einstein-ascii.mp4" 
-                        width="45%" 
-                        style="max-width:45%; height:auto;" 
-                        autoplay
-                        loop
-                        muted
-                        playsinline
-                        controls                
-                    ></video>
-                    <img src="content/ascii-association.svg" width="49%" style="max-width:49%; height:auto;" />
-                </span>
-            </a>
+            <span style="display:flex; justify-content:center; gap:16px; align-items:flex-start; flex-wrap:wrap;">
+                <video 
+                    src="content/einstein-ascii.mp4" 
+                    width="45%" 
+                    style="max-width:45%; height:auto;" 
+                    autoplay
+                    loop
+                    muted
+                    playsinline
+                    controls                
+                ></video>
+                <img src="content/ascii-association.svg" width="49%" style="max-width:49%; height:auto;" />
+            </span>
         </p>
         <hr class="w-[95%] my-4 mx-auto border-gray-200">
 
@@ -181,7 +179,10 @@
             embedding space.  
         </p> -->
 
-        <!-- LIMITATIONS -->
+        <br/><h2 class="text-2xl font-semibold">Why not use the glyphs as keys?</h2>
+
+
+        <!-- ROOM FOR IMPROVEMENT -->
         <br/><h2 class="text-2xl font-semibold">Room for Improvement</h2>
 
         <p class="mt-3 body-text">
@@ -254,7 +255,7 @@
                 </a>
             </li>
             <li id="ref-3">
-                <a href="https://arxiv.org/pdf/2010.11929">
+                <a href="https://arxiv.org/pdf/1711.00937">
                     <!-- Author. <em>Title</em>. Venue, Year. -->
                     A. Oord, O. Vinyals, and K. Kavukcuoglu.
                     <em>Neural Discrete Representation Learning</em>. 
