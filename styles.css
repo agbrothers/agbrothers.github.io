@@ -122,3 +122,17 @@ body {
 .copy-btn:hover {
   background: rgba(255,255,255,0.14);
 }
+
+
+/* HIGHLIGHT THE TARGET REFERENCE */
+.ref-item:target {
+  background: #fff7cc;           /* soft highlight */
+  border-left: 4px solid #f59e0b; /* accent bar */
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.5rem;
+}
+
+/* Optional: animate in */
+.ref-item:target {
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
