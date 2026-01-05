@@ -123,16 +123,35 @@ body {
   background: rgba(255,255,255,0.14);
 }
 
-
-/* HIGHLIGHT THE TARGET REFERENCE */
-.ref-item:target {
-  background: #fff7cc;           /* soft highlight */
-  border-left: 4px solid #f59e0b; /* accent bar */
-  padding: 0.4rem 0.6rem;
+/* Make the whole reference row feel like a single “card” */
+.ref-item a {
+  display: block;
+  padding: 0.5rem 0.75rem;
   border-radius: 0.5rem;
+  text-decoration: none;
 }
 
-/* Optional: animate in */
-.ref-item:target {
-  transition: background-color 150ms ease, border-color 150ms ease;
+/* Default hover can be subtle */
+.ref-item a:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/* Highlight the referenced item when navigated to via #ref-N */
+.ref-item:target a {
+  background: rgba(59, 130, 246, 0.12);     /* blue-ish */
+  outline: 2px solid rgba(59, 130, 246, 0.35);
+  box-shadow: 0 0 0 6px rgba(59, 130, 246, 0.10);
+  animation: refPulse 900ms ease-out 0s 2;
+}
+
+/* Nice pulse animation */
+@keyframes refPulse {
+  0%   { box-shadow: 0 0 0 0   rgba(59, 130, 246, 0.35); }
+  100% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0.00); }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .ref-item:target a { animation: none; }
 }
