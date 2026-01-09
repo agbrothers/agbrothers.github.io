@@ -69,7 +69,7 @@
             My goals were to make the code both more effective (better quality conversions) and more efficient 
             (able to convert live video streams). In doing so, I made a number of surprising connections to machine 
             learning concepts I've gained experience with in the years since. Namely, (1) this whole algorithm
-            can be mapped onto a broader class of key-value memories, and (2) the conversion can be sped up
+            can be mapped onto a broader class of key-value memories <a href="#ref-1">[1]</a>, and (2) the conversion can be sped up
             significantly by using 2D convolutions. In fact, the whole process can be viewed simply as pixel-character
             association in an embedding space. Below is a visual guide through this process. 
         </p><br/>
@@ -109,14 +109,14 @@
             a kind of similarity metric with pixel patches to facilitate fast lookup. 
         </p><br/>
         <p class="mt-3 body-text">
-            A well known method for extracting descriptive features from pixels to use 2D convolutions  <a href="#ref-1">[1]</a>. 
+            A well-known and efficient method to extract descriptive features from pixels is the 2D convolution <a href="#ref-2">[2]</a>. 
             This involves taking a set of filters (kernels), each of which computes a weighted average of the character pixels with a goal
-            of detecting features, like an edge or object. The output of each filter is a scalar value indicating the presence 
-            of the corresponding feature, and we collect the output of all filters into into a feature vector. Each filter is the 
-            exact same size as our character glyphs so that each filter computes a single feature per character.
-            We set the weights of these filters by hand to detect 34 different features of interest, including horizontal lines, 
-            vertical lines, diagonal lines, and circles in different parts of the glyph, as wel as overall brightness.  
-            The resulting feature vectors are stored as keys, as shown in Figure 1 above. With this, our ASCII memory is ready for action. 
+            of detecting features, like an edge or object. We design the filters to be the same height and width as our character glyphs so
+            that the output of each filter is a single scalar value indicating the presence of the corresponding feature. The weights of 
+            these filters are set by hand to detect 34 different features of interest, including horizontal lines, vertical lines, diagonal 
+            lines, and circles in different parts of the glyph, as well as overall brightness. We then collect the outputs from all filters 
+            into into a single feature vector that compactly describes the character, which we store as a key as shown in Figure 1 above. 
+            With this, our ASCII memory is ready for action. 
         </p><br/>
 
 
@@ -131,10 +131,11 @@
         </p><br/>
 
         <p class="mt-3 body-text">
-            Now we need to figure out how to compare our input image with our keys. Similar to the way a vision transformer 
-            processes images, we can just partition each frame into a set of patches <a href="#ref-2">[2]</a>. By setting 
-            these patches to be the same size as our glyphs, we can conventiently use the same convolutional filters to extract
-            patch features as shown in Figure 2 above, as well as easily swap patches for glyphs as shown in Figure 3 below.  
+            Now we need to determine how to compare our input image with our keys. Similar to the way a vision transformer 
+            processes images, we will just partition each frame into a set of patches <a href="#ref-3">[3]</a>, then compare each
+            pixel patch to the keys of our memory to identify the character with the most similar features. By setting these patches 
+            to be the same size as our glyphs, we can conventiently use the same convolutional filters to extract patch features as 
+            shown in Figure 2 above, as well as easily swap patches for glyphs as shown in Figure 3 below.  
             
             <!-- The filters, or convolutional kernels, we use are normalized such that the presence of a feature yields an output 
             of 1 and the lack of a feature yields an output of zero. These filters are hand-crafted to extract character-level 
@@ -211,13 +212,13 @@
         <p class="mt-3 body-text">
             Why is this a limitation? Well, any characters that are at the extremes of the feature space, 
             like very dark, bold characters ("N", "M", "W") or very light characters (".", "•"), naturally have 
-            significantly larger basins of attraction, because no other characters exist to bound their cells. 
+            larger basins of attraction, because few competing characters exist to bound their cells. 
             Compounding this issue, even the darkest of characters have a lot of white space, so all of our keys
-            are biased towards the lighter region of our space, even though the images we are drawing queries are
+            are biased towards the lighter region of our space. The images we are drawing queries from, however, are
             much more uniformly distributed in the pixel color space, often having rich details in dark parts of 
-            the image. When most of the dark pixel patches fall into the voronoi cells for "M" and "N" due to 
-            lack of competition, the resulting image loses a significant amount of detail as shown in the figure below. 
-            Maximizing competition in voronoi space is the key to getting good results.  
+            the image. When most of the dark pixel patches fall into the voronoi cells for "M" and "N", the resulting 
+            image loses a significant amount of detail as a direct result of lacking competition. As shown in the figure 
+            below, maximizing competition in voronoi space is the key to getting good results. 
             
             <!-- if you look at the points towards the edge of the space, you'll notice 
             that they have massive, unbounded basins of attraction. In our space, these correspond to the 
@@ -252,13 +253,12 @@
     
         <ol class="list-decimal pl-6 space-y-2 mt-3 body-text">
             <li><strong>Add more characters to the palette.</strong> Specifically, adding a larger diversity of characters near 
-                the feature extremes. In particular, heavier, bolder characters to increase competition in the dark 
-                region near the origin. </li>
+                the feature extremes. The ideal palatte should result in as even of a tiling of the embedding space as possible</li>
             <li><strong>Define a better kernel.</strong> Perhaps even separate kernels for embedding pixels and characters. The ideal 
-                character kernel should result in as even of a tiling of the embedding space as possible. Perhaps this 
-                is an area where learned filters could yield a strong result.</li>
+                character kernel should accurately capture a variety of shape features and cleanly disentangle shape from brightness. 
+                Perhaps this is an area where learned filters could yield an interesting result.</li>
             <li><strong>Image preprocessing.</strong> Rather than making our character embedding space more uniform with respect to the 
-                embedded pixel patches, we can squishing our pixel space queries to map more uniformly to our character voronoi cells 
+                embedded pixel patches, we can squash our pixel space queries to map more uniformly over our character voronoi cells 
                 through methods like increasing exposure or contrast, as shown in the Figure 5 above.</li>
         </ol><br/>
 
@@ -270,10 +270,12 @@
         <br/><h2 class="text-2xl font-semibold">Why not use the glyphs themselves as keys?</h2>
         <p class="mt-3 body-text">
             Why bother with convolutions and handcrafted features at all, when we could just flatten the glyphs and use 
-            them as both the keys and values? Well, this feature space is heavily biased by the overall brightness of the
-            characters and queries, rather than shape-related features, excacerbating the issues described above where a 
-            handful of heaver or broader characters have basins of attraction that dominate the space, resulting in poor 
-            competition and thus a large loss of detail in the resulting image, as shown in the figure below. 
+            them as both the keys and values? Well, unlike what we just discussed, such a feature space does not disentangle 
+            shape features from brightness of characters and pixel queries, and is heavily biased towards the latter. It also  
+            seems to excacerbate the problem where a handful of heaver or broader characters have basins of attraction that 
+            dominate the space. The result is a memory that is bad at both representing its values and constructing its queries, 
+            resulting in both poor competition and poor pixel-to-character shape association. Thus a large amount of detail in the 
+            resulting image is washed away, as shown in the figure below. 
         </p>
         <!-- FEATURE-LEVEL DIAGRAMS -->
         <hr class="w-[99%] my-4 mx-auto border-gray-200">
@@ -294,35 +296,40 @@
         <p class="mt-3 body-text">
             Beyond the surface-level nearest neighbor interpretation, it can be interesting to connect this simple process to
             other relevant algorithms in machine learning. Anyone who has studied transformers probably jumped to connect
-            the query-key-value concepts here to attention. Indeed, this can be viewed as a form of cross-attention with 
-            negative distance used to compute the attention weights rather than the dot product and, instead of a softmax, 
-            using an argmax to compute hard attention weights over the keys <a href="#ref-3">[3]</a><a href="#ref-4">[4]</a>. 
-            Similarly, this can be viewed as the update step for recall in a generalized dense associative memory, given 
-            negative distance as the similarity function and setting the temperature to be near zero <a href="#ref-5">[5]</a>. 
-            Most glaringly, though, our whole conversion pipeline looks eerily similar to the design of a VQ-VAE 
-            <a href="#ref-6">[6]</a>, an earlier generative model designed and trained self-supervizedly for image synthesis. 
-            This involves encoding an image through convolution, taking the latent encoding for each chunk of the image, looking
-            up the most similar item from a learned dictionary of embeddings, and swapping the pixel encoding for the dictionary 
-            embedding before passing this latent representation to a decoder. 
+            the query-key-value concepts here to attention. Indeed, this can be viewed as a form of hard cross-attention, replacing 
+            the dot product association with negative distance for computing attention weights. To make the attention "hard", the 
+            softmax is replaced by an argmax over the keys <a href="#ref-4">[4]</a><a href="#ref-5">[5]</a>. Unsurprisingly, the ascii 
+            memory association process can also be likened to the update step for recall in a generalized dense associative memory. 
+            As in our attention caveat, our similarity function here would be negative distance and we could achieve approximately 
+            "hard" memory associations by setting the temperature of our energy function to be near zero <a href="#ref-6">[6]</a>. 
+            Most glaringly, though, our whole memory inference pipeline looks remarkably similar to the design of a VQ-VAE 
+            <a href="#ref-7">[7]</a>, an earlier generative model designed and trained self-supervizedly for image synthesis. 
+            The VQ-VAE encodes an image through convolution, then takes the latent encodings for overlapping patches of the image, 
+            looks up the most similar item from a learned dictionary of embeddings, and swaps each patch encoding for a dictionary 
+            embedding before passing this latent representation to a decoder. Under this lens, one might view the VQ-VAE instead 
+            as a crude form of autoassociative memory. 
         </p> 
         <p class="mt-3 body-text">
-            We might also relate this approach to an older line of work: self-organizing maps <a href="#ref-7">[7]</a>. Kohonen 
+            We might also relate this approach to an older line of work: self-organizing maps <a href="#ref-8">[8]</a>. Kohonen 
             developed these simple neural network models in the 80's as a method for learning structured representations from
-            data in an unsupervised manner. They feature a set of neurons which compete to fire for a given input. Only the neuron with
-            the strongest activation will fire, then update itself and its neighbors to be more similar to that input, hence the names 
-            winner-takes-all activation and competitive learning. Ignoring the topological aspects, we can view our character 
-            key-value memory as loosely similar to the inference loop of a self-organizing map, with our keys corresponding to 
-            the neurons in the map, and the winning neuron corresponding our most similar key. In fact, self-organizing maps 
-            encounter many of the same difficulties we will discuss below, namely regarding initialization. Choosing a bad set
-            of initial neurons might result in a handful of them always winning, and thus preventing the rest of the map from 
-            competing, the way a monopoly crushes competition. Similarly, when we choose a poor embedding method for our keys, 
-            as in Figure 5 above, a small handful of characters might activate for all image queries, resulting in an 
-            ASCII image with little to no detail. 
+            data in an unsupervised manner. They feature a set of neurons which compete to fire for a given input. Only the neuron 
+            that activates strongest for a given input will fire, hence the names winner-takes-all activation. Then winner then 
+            updates itself and its neighbors to be more similar to the input, with this process known as competitive learning. 
+            Ignoring the topological aspects, we can view our character key-value memory as loosely similar to the inference 
+            loop of a self-organizing map, with our keys corresponding to the neurons in the map, and the winning neuron 
+            corresponding our most similar key. More interestingly, self-organizing maps encounter many of the same difficulties 
+            we discussed above, namely regarding how initialization of neurons influences their resulting competition over inputs. 
+            Choosing a bad set of initial neurons might result in a handful of them always winning, hoarding all of the updates and
+            learning signal. As in other aspects of life, monopolies induce bad dynamics. The stifling of competition prevents any 
+            of the other neurons from learning diverse and meaningful representations, resulting in a rather useless model of the data. 
+            Similarly, when we chose a poor embedding method for our keys in the last section, a small handful of characters 
+            monopolized our embedding space, resulting in an ASCII image with little to no detail. 
         </p>
         <p class="mt-3 body-text">
-            For an project that might seem to be pure image processing on the surface, there are a surprising number deep ties
+            For a project that looks like pure image processing on the surface, there are a surprising number deep ties
             to ideas and problems in machine learning. My goal here was both provide a visually intuitive primer on key-value 
-            memories and to show how many connections they have in both machine learning and computer science approaches in general. 
+            memory and to show that there may be many more algorithms that fall under this general category of memory than 
+            we realize. 
         </p>
             <!-- RBF Networks
             VQ-VAE and diffusion models -->
@@ -330,10 +337,10 @@
 
             <!-- Kohonen, Teuvo (1982). "Self-Organized Formation of Topologically Correct Feature Maps". Biological Cybernetics. -->
 
-            <!-- This same process can be viewed under a number of different lenses: nearest neighbor search, hard attention <a href="#ref-3">[3]</a>, 
-            associative memory recall with low temperature <a href="#ref-N">[?]</a>, or even a winner-takes-all activation in a self-organizing map <a href="#ref-N">[?]</a>. 
+            <!-- This same process can be viewed under a number of different lenses: nearest neighbor search, hard attention <a href="#ref-4">[4]</a>, 
+            associative memory recall with low temperature <a href="#ref-N">[?]</N>, or even a winner-takes-all activation in a self-organizing map <a href="#ref-N">[?]</N>. 
 
-            In fact, this whole process, from start to finish, looks eerily similar to the design of a VQ-VAE <a href="#ref-4">[4]</a>, an earlier generative model designed 
+            In fact, this whole process, from start to finish, looks eerily similar to the design of a VQ-VAE <a href="#ref-5">[5]</a>, an earlier generative model designed 
             and trained self-supervizedly for image synthesis. 
 
             All of these are different ways of describing a very simple process: choose a distance metric and pick the closest thing. 
@@ -363,14 +370,22 @@
         <ol class="mt-4 list-decimal pl-6 space-y-2 body-text">
             
             <li id="ref-1" class="ref-item scroll-mt-24">
+                <a href="https://arxiv.org/abs/2501.02950">
+                    <!-- Author. <em>Title</em>. Venue, Year. -->
+                    S. Gershman, I. Fiete, K. Irie 
+                    <em>Key-value memory in the brain</em>. 
+                    Neuron, 2025.
+                </a>
+            </li>
+            <li id="ref-2" class="ref-item scroll-mt-24">
                 <a href="http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf">
                     <!-- Author. <em>Title</em>. Venue, Year. -->
                     Y. LeCun, L. Bottou, Y. Bengio, and P. Haffner. 
                     <em>Gradient Based Learning Applied to Document Recognition</em>. 
-                    Proceedings of the IEEE Conference on Computer Vision, 1998.
+                    Proceedings of the IEEE, 1998.
                 </a>
             </li>
-            <li id="ref-2" class="ref-item scroll-mt-24">
+            <li id="ref-3" class="ref-item scroll-mt-24">
                 <a href="https://arxiv.org/pdf/2010.11929">
                     <!-- Author. <em>Title</em>. Venue, Year. -->
                     A. Dosovitskiy, L. Beyer, A. Kolesnikov, D. Weissenborn, X. Zhai, T. Unterthiner, M. Dehghani, M. Minderer, G. Heigold, S. Gelly, J. Uszkoreit, and N. Houlsby.
@@ -378,7 +393,7 @@
                     International Conference on Learning Representations, 2021. 
                 </a>
             </li>
-            <li id="ref-3" class="ref-item scroll-mt-24">
+            <li id="ref-4" class="ref-item scroll-mt-24">
                 <a href="https://arxiv.org/pdf/1502.03044">
                     <!-- Author. <em>Title</em>. Venue, Year. -->
                     K. Xu, J. Ba, R. Kiros, K. Cho, A. Courville, R. Salakhudinov, R. Zemel and Y. Bengio
@@ -386,7 +401,7 @@
                     Proceedings of the 32nd International Conference on Machine Learning, 2015. 
                 </a>
             </li>
-            <li id="ref-4" class="ref-item scroll-mt-24">
+            <li id="ref-5" class="ref-item scroll-mt-24">
                 <a href="https://arxiv.org/pdf/1508.04025">
                     <!-- Author. <em>Title</em>. Venue, Year. -->
                     T. Luong, H. Pham, and C.D. Manning,
@@ -394,7 +409,7 @@
                     Proceedings of the 2015 Conference on Empirical Methods in Natural Language Processing, 2015. 
                 </a>
             </li>
-            <li id="ref-5" class="ref-item scroll-mt-24">
+            <li id="ref-6" class="ref-item scroll-mt-24">
                 <a href="https://arxiv.org/pdf/2507.06211">
                     <!-- Author. <em>Title</em>. Venue, Year. -->
                     D. Krotov, B. Hoover, P. Ram, and B. Pham. 
@@ -402,7 +417,7 @@
                     International Conference on Machine Learning, 2025. 
                 </a>
             </li>
-            <li id="ref-6" class="ref-item scroll-mt-24">
+            <li id="ref-7" class="ref-item scroll-mt-24">
                 <a href="https://arxiv.org/pdf/1711.00937">
                     <!-- Author. <em>Title</em>. Venue, Year. -->
                     A. Oord, O. Vinyals, and K. Kavukcuoglu.
@@ -410,7 +425,7 @@
                     Neural Information Processing Systems, 2017. 
                 </a>
             </li>
-            <li id="ref-7" class="ref-item scroll-mt-24">
+            <li id="ref-8" class="ref-item scroll-mt-24">
                 <a href="https://link.springer.com/article/10.1007/BF00337288">
                     <!-- Author. <em>Title</em>. Venue, Year. -->
                     T. Kohonen.
