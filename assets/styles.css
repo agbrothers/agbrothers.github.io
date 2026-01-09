@@ -1,4 +1,4 @@
-@font-face {
+/* @font-face {
   font-family: "YourCustomFont";
   src: url("fonts/YourCustomFont.woff2") format("woff2"),
        url("fonts/YourCustomFont.woff") format("woff");
@@ -7,7 +7,7 @@
 
 body {
   font-family: "YourCustomFont", ui-sans-serif, system-ui;
-}
+} */
 
 /* CUSTOM BUTTONS */
 .btn-link {
