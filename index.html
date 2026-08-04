@@ -22,7 +22,7 @@
   <!-- NAVBAR -->
   <header class="fixed inset-x-0 top-0 z-50 bg-white/80 backdrop-blur shadow-md">
     <nav class="sticky top-0 z-50">
-      <div class="mx-auto max-w-5xl px-4 sm:px-6">
+      <div class="site-width">
         <div class="flex h-14 items-center justify-between">
           <!-- NAME -->
           <a href="/" class="font-semibold tracking-tight">Greyson Brothers</a>
@@ -62,12 +62,12 @@
     </nav>
   </header>
 
-  <main class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-0 pt-24">
+  <main class="site-width pt-24">
       <!-- HERO -->
       <section id="home" class="mb-24 flex flex-col md:flex-row md:items-start md:gap-8 scroll-mt-24">
         <!-- ABOUT ME -->
         <div class="flex-1">
-          <h1 class="text-4xl font-extrabold tracking-tight">Greyson Brothers</h1>
+          <h1 class="text-[3.5rem] font-extrabold tracking-tight font-playfair-144 text-[#101010]">Greyson Brothers</h1>
           <p class="mt-4 body-text">
             I'm an AI/ML researcher with 5 years of experience at Johns Hopkins University <a href="https://www.jhuapl.edu/" class="underline">
             Applied Physics Lab</a>. I actively collaborate on autonomy research with <a href="https://johnwinder.ai/" class="underline">
@@ -84,37 +84,13 @@
           </p>
         </div>
         <!-- PROFILE -->
-        <aside class="mt-8 md:mt-0 w-full md:w-80 flex-shrink-0 text-center md:text-left">
+        <aside class="mt-8 md:mt-0 w-full md:w-[26rem] flex-shrink-0 text-center md:text-left">
           <!-- PROFILE PIC -->
           <img 
             src="content/profile.png" 
             alt="Greyson Brothers portrait" 
-            class="mx-auto md:mx-0 w-80 h-80 object-cover rounded-full border border-gray-100"
+            class="mx-auto md:mx-0 w-[26rem] h-[26rem] object-cover rounded-full border border-gray-100"
           ></img>
-          <!-- CONTACT INFO -->
-          <div class="mt-4 text-sm space-y-2">
-            <div class="flex justify-center items-center gap-4 text-base">
-              <!-- GITHUB LINK -->
-              <a href="https://github.com/agbrothers" title="GitHub" target="_blank" rel="noopener">
-                <img src="content/icon-github.png" alt="GitHub" class="w-6 h-6" />
-              </a>
-              <!-- LINKEDIN LINK -->
-              <a href="https://www.linkedin.com/in/gbrothers" title="LinkedIn" target="_blank" rel="noopener">
-                <img src="content/icon-linkedin.png" alt="LinkedIn" class="w-6 h-6" />
-              </a>
-              <!-- GOOGLE SCHOLAR LINK -->
-              <a href="https://scholar.google.com/citations?view_op=list_works&hl=en&hl=en" title="Google Scholar" target="_blank" rel="noopener">
-                <img src="content/icon-scholar.png" alt="Google Scholar" class="w-6 h-6" />
-              </a>
-              <!-- CV DOWNLOAD -->
-              <a href="content/cv.pdf" title="Curriculum Vitae" class="font-medium text-lg">
-                <strong>CV</strong>
-              </a>
-              <!-- EMAIL LINK -->
-              <a href="mailto:greysonbrothers@gmail.com" title="Email" class="block">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6 fill-current"><path d="M2 4.5A2.5 2.5 0 0 1 4.5 2h15A2.5 2.5 0 0 1 22 4.5v15a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 19.5v-15Zm2.508.063 7.992 6.105 7.992-6.105A.5.5 0 0 0 20.5 4h-15a.5.5 0 0 0-.492.563Zm-.508 1.97v12.967a.5.5 0 0 0 .5.5h15a.5.5 0 0 0 .5-.5V6.533l-8.242 6.301a.75.75 0 0 1-.916 0L4 6.533Z"/></svg>
-              </a>            
-            </div>
           </div>
         </aside>
       </section>
@@ -122,14 +98,14 @@
 
       <!-- PROJECTS -->
       <section id="projects" class="mb-24 scroll-mt-24">
-        <h2 class="text-3xl font-semibold">Projects</h2>
+        <h2 class="text-[2.125rem] font-semibold font-playfair-display">Projects</h2>
         <hr class="w-[100%] my-4 mx-auto border-gray-200">    
 
         
         <!-- PROJECT: ASCIIFY -->
         <div class="mt-6 space-y-6">
           <div class="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-2">
-              <a href="pages/asciify/"><h3 class="text-xl font-bold">Image-to-ASCII using Key-Value Memory.</h3></a>
+              <a href="pages/asciify/"><h3 class="text-2xl font-bold font-playfair-144">Image-to-ASCII using Key-Value Memory.</h3></a>
               <a href="pages/asciify/" class="btn-link">Project Page</a>
               <a href="https://github.com/agbrothers/asciify" class="btn-link">Github</a>        
               <em class="ml-auto text-sm text-gray-500 whitespace-nowrap">Dec 28, 2025.</em>
@@ -172,7 +148,7 @@
               learning concepts I've gained experience with in the years since. Namely, (1) this whole algorithm
               can be mapped onto a broader class of key-value memories, and (2) the conversion can be sped up
               significantly by using 2D convolutions. 
-              <a href="pages/asciify/">&nbsp;&nbsp;<span style="color:#FF3D3E;" class="font-bold hover:underline"><em>Read more →</em></span></a>
+              <a href="pages/asciify/">&nbsp;&nbsp;<span style="color:#FF5255;" class="font-bold hover:underline"><em>Read more →</em></span></a>
             </p></br>
             <hr class="w-[100%] my-4 mx-auto border-gray-200">
           </article>
@@ -182,7 +158,7 @@
         <div class="mt-6 space-y-6">
 
           <div class="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-2">
-              <a href="pages/interactive-am/"><h3 class="text-xl font-bold">An Interactive Associative Memory.</h3> </a>
+              <a href="pages/interactive-am/"><h3 class="text-2xl font-bold font-playfair-144">An Interactive Associative Memory.</h3> </a>
               <a href="pages/interactive-am/" class="btn-link">Project Page</a>
               <a href="https://www.desmos.com/3d/wvpffnqwbk" class="btn-link">Desmos</a>            
               <em class="ml-auto text-sm text-gray-500 whitespace-nowrap">Dec 20, 2025.</em>
@@ -208,7 +184,7 @@
               on a live 3D visualization tool. After falling down a Desmos rabbit hole, I found it very 
               helpful for reinforcing my own understanding, and I think it might be useful for anyone else 
               trying to build a stronger intuition for how they work.
-              <a href="pages/interactive-am/">&nbsp;&nbsp;<span style="color:#FF3D3E;" class="font-bold hover:underline"><em>Read more →</em></span></a>
+              <a href="pages/interactive-am/">&nbsp;&nbsp;<span style="color:#FF5255;" class="font-bold hover:underline"><em>Read more →</em></span></a>
             </p></br>
             <hr class="w-[100%] my-4 mx-auto border-gray-200">    
           </article>
@@ -216,145 +192,136 @@
       </section>
 
       <!-- PUBLICATIONS -->
-      <section id="publications" class="mb-24 scroll-mt-24">
-        <h2 class="text-3xl font-semibold">Conference&nbsp;Publications</h2>
-        <hr class="w-[98%] my-4 mx-auto border-gray-200">
-        <div class="mt-6 space-y-6">
-          <!-- ICML 2025 -->
-          <!-- <article class="lg border border-gray-200 bg-gray-50 p-4 shadow-sm transition hover:shadow-md"> -->
-          <!-- <article class="lg border border-gray-200 bg-gray-50 p-4"> -->
-          <article>
-            <div class="flex gap-6">
-              <!-- IMAGE -->
-              <div class="tag-wrapper">
-                <!-- <span class="tag-pill tag-icml" style="color: #ebffea;">ICML'25</span> -->
-                <div class="w-3/4 aspect-square border border-gray-200 rounded-md bg-white p-0.5">
-                  <img src="content/publications/adapool.png" class="w-full h-full object-contain" />
-                </div>
-              </div>
-              <!-- PUBLICATION DETAILS -->
-              <div class="flex-1 pub-block">
-                <span class="tag-pill tag-icml" style="color: #ebffea;">ICML'25</span>
-                <p class="text-xl font-semibold">Robust Noise Attenuation via Adaptive Pooling of Transformer Outputs</p>
-                <p class="text-base text-gray-600 pub-authors"><strong>Greyson&nbsp;Brothers</strong>.</p>
-                <p class="text-s text-gray-500 italic pub-venue">International Conference on Machine Learning,&nbsp;ICML 2025.</p>
-                <p class="text-s text-gray-500 pub-venue"><span style="color:#FF3D3E;" class="font-medium">Spotlight - Top&nbsp;2.6% of 12k submissions</span></p>
-                <div class="flex flex-wrap gap-2 pt-1">
-                  <a href="https://arxiv.org/abs/2506.09215" class="bg-gray-200 btn-link">arXiv</a>
-                  <a href="https://openreview.net/forum?id=8JGwoZceQs" class="bg-gray-200 btn-link">OpenReview</a>
-                  <a href="https://icml.cc/virtual/2025/poster/46284" class="bg-gray-200 btn-link">Presentation</a>
-                  <a href="https://icml.cc/media/PosterPDFs/ICML%202025/46284.png" class="bg-gray-200 btn-link">Poster</a>
-                  <a href="https://github.com/agbrothers/pooling" class="bg-gray-200 btn-link">Code</a>
-                </div>
-              </div>
-            </div>
-          </article>
-          <!-- RLC 2025 -->
-          <hr class="w-[98%] my-4 mx-auto border-gray-200">
-          <article>
-            <div class="flex gap-6">
-              <!-- IMAGE -->
-              <div class="tag-wrapper">
-                <div class="w-3/4 aspect-square border border-gray-200 rounded-md bg-white p-0.5">
-                  <img src="content/publications/penguin.png" class="w-full h-full object-contain" />
-                </div>
-              </div>
-              <!-- PUBLICATION DETAILS -->
-              <div class="flex-1 pub-block">
-                <span class="tag-pill tag-rlc" style="color: #dcf7fe;">RLC'25</span>
-                <h3 class="text-xl font-semibold">PEnGUiN: Partially Equivariant Graph NeUral Networks for Sample-Efficient&nbsp;MARL</h3>
-                <p class="text-base text-gray-600 pub-authors">Joshua&nbsp;McClellan, <strong>Greyson&nbsp;Brothers</strong>, Furong&nbsp;Huang, Pratap&nbsp;Tokekar.</p>
-                <p class="text-s text-gray-500 italic pub-venue">Reinforcement Learning Conference,&nbsp;RLC 2025.</p>
-                <div class="flex flex-wrap gap-2 pt-1">
-                  <a href="https://arxiv.org/abs/2503.15615" class="bg-gray-200 btn-link">arXiv</a>
-                  <a href="https://openreview.net/forum?id=SpfX0amuzi" class="bg-gray-200 btn-link">OpenReview</a>
-                  <a href="https://rlj.cs.umass.edu/2025/papers/RLJ_RLC_2025_310.pdf" class="bg-gray-200 btn-link">Journal</a>
-                </div>
-              </div>
-            </div>
-          </article>
-          <!-- SPIE 2025 -->
-          <hr class="w-[98%] my-4 mx-auto border-gray-200">
-          <article>
-            <div class="flex gap-6">
-              <!-- IMAGE -->
-              <div class="tag-wrapper">
-                <div class="w-3/4 aspect-square border border-gray-200 rounded-md bg-white p-0.5">
-                  <img src="content/publications/stan.png" class="w-full h-full object-contain" />
-                </div>
-              </div>
-              <!-- PUBLICATION DETAILS -->
-              <div class="flex-1 pub-block">
-                <span class="tag-pill tag-spie" style="color: #fff7e3;">SPIE'25</span>
-                <h3 class="text-xl font-semibold">Beyond Human Reasoning: Bridging the Human-Machine Information Gap</h3>
-                <p class="text-base text-gray-600 pub-authors">John&nbsp;Winder, Willa&nbsp;Mannering, <strong>Greyson&nbsp;Brothers</strong>, Anish Nayak, Justin Harsono, Noah Ford, Naveed Haghani, Thomas Urban.</p>
-                <p class="text-s text-gray-500 italic pub-venue">SPIE Defense&nbsp;+ Commercial Sensing,&nbsp;2025.</p>
-                <div class="flex flex-wrap gap-2 pt-1">
-                  <a href="https://www.spiedigitallibrary.org/conference-proceedings-of-spie/13473/1347309/Beyond-human-reasoning-bridging-the-human-machine-information-gap/10.1117/12.3053414.short" class="bg-gray-200 btn-link">Proceedings</a>
-                </div>
-              </div>
-            </div>
-          </article>
-          <hr class="w-[100%] my-4 mx-auto border-gray-200">
-        </div>
+      <section id="publications" class="pubs-fullbleed scroll-mt-24">
+        <div class="pubs">
+          <div class="pubs-inner">
+            <h2 class="pubs-header">Publications</h2>
 
-        <!-- Workshops -->
-        <h2 class="mt-12 text-3xl font-semibold">Workshop&nbsp;Publications</h2>
-        <hr class="w-[100%] my-4 mx-auto border-gray-200">
-        <div class="mt-6 space-y-6">
-          <!-- ICML WS 2025 -->
-          <article>
-            <div class="flex gap-6">
-              <!-- IMAGE -->
-              <div class="tag-wrapper">
-                <div class="w-3/4 aspect-square border border-gray-200 rounded-md bg-white p-0.5">
-                  <img src="content/publications/patches.png" class="w-full h-full object-contain" />
+            <!-- CONFERENCES -->
+            <button type="button" class="pubs-toggle" data-pubs-toggle aria-expanded="true" aria-controls="pubs-conferences">+ Conferences</button>
+            <div class="pubs-list" id="pubs-conferences">
+              <!-- ICML 2025 -->
+              <div class="pubs-row">
+                <div class="pubs-row-main">
+                  <div class="pubs-text">
+                    <p class="pubs-title">Robust Noise Attenuation via Adaptive Pooling of Transformer Outputs</p>
+                    <p class="pubs-authors"><strong>Greyson&nbsp;Brothers</strong>.</p>
+                    <p class="pubs-venue">International Conference on Machine Learning,&nbsp;ICML 2025.</p>
+                    <p class="pubs-spotlight">Spotlight (Top 2.6% of 12k submissions)</p>
+                    <div class="pubs-buttons">
+                      <a href="https://arxiv.org/abs/2506.09215" class="pubs-btn">arXiv</a>
+                      <a href="https://openreview.net/forum?id=8JGwoZceQs" class="pubs-btn">OpenReview</a>
+                      <a href="https://icml.cc/virtual/2025/poster/46284" class="pubs-btn">Presentation</a>
+                      <a href="https://icml.cc/media/PosterPDFs/ICML%202025/46284.png" class="pubs-btn">Poster</a>
+                      <a href="https://github.com/agbrothers/pooling" class="pubs-btn">Code</a>
+                    </div>
+                  </div>
+                  <div class="pubs-image">
+                    <img src="content/publications/adapool.png" alt="" />
+                  </div>
                 </div>
+                <div class="pubs-endcap"><span class="pubs-tag">ICML'25</span></div>
               </div>
-              <!-- PUBLICATION DETAILS -->
-              <div class="flex-1 pub-block">
-                <span class="tag-pill tag-icml" style="color: #ebffea;">ICML'25</span>
-                <h3 class="text-xl font-semibold">Robust Noise Attenuation via Adaptive Pooling of Transformer Outputs</h3>
-                <p class="text-base text-gray-600 pub-authors"><strong>Greyson&nbsp;Brothers</strong>.</p>
-                <p class="text-s text-gray-500 italic pub-venue">ICML Tokenization Workshop,&nbsp;2025.</p>
-                <p class="text-s text-gray-500 italic pub-venue">(dual submission with main track above)</p>
-                <div class="flex flex-wrap gap-2 pt-1">
-                  <a href="https://arxiv.org/abs/2506.09215" class="bg-gray-200 btn-link">arXiv</a>
-                  <a href="https://openreview.net/forum?id=yRJpS6exNA" class="bg-gray-200 btn-link">OpenReview</a>
-                  <a href="https://tokenization-workshop.github.io/" class="bg-gray-200 btn-link">Workshop</a>
+              <!-- RLC 2025 -->
+              <div class="pubs-row">
+                <div class="pubs-row-main">
+                  <div class="pubs-text">
+                    <p class="pubs-title">PEnGUiN: Partially Equivariant Graph Neural Networks for Sample-Efficient&nbsp;MARL</p>
+                    <p class="pubs-authors">Joshua&nbsp;McClellan, <strong>Greyson&nbsp;Brothers</strong>, Furong&nbsp;Huang, Pratap&nbsp;Tokekar.</p>
+                    <p class="pubs-venue">Reinforcement Learning Conference,&nbsp;RLC 2025.</p>
+                    <div class="pubs-buttons">
+                      <a href="https://arxiv.org/abs/2503.15615" class="pubs-btn">arXiv</a>
+                      <a href="https://openreview.net/forum?id=SpfX0amuzi" class="pubs-btn">OpenReview</a>
+                      <a href="https://rlj.cs.umass.edu/2025/papers/RLJ_RLC_2025_310.pdf" class="pubs-btn">Journal</a>
+                    </div>
+                  </div>
+                  <div class="pubs-image">
+                    <img src="content/publications/penguin.png" alt="" />
+                  </div>
                 </div>
+                <div class="pubs-endcap"><span class="pubs-tag">RLC'25</span></div>
+              </div>
+              <!-- SPIE 2025 -->
+              <div class="pubs-row">
+                <div class="pubs-row-main">
+                  <div class="pubs-text">
+                    <p class="pubs-title">Beyond Human Reasoning: Bridging the Human-Machine Information Gap</p>
+                    <p class="pubs-authors">John&nbsp;Winder, Willa&nbsp;Mannering, <strong>Greyson&nbsp;Brothers</strong>, Anish Nayak, Justin Harsono, Noah Ford, Naveed Haghani, Thomas Urban.</p>
+                    <p class="pubs-venue">SPIE Defense&nbsp;+ Commercial Sensing,&nbsp;2025.</p>
+                    <div class="pubs-buttons">
+                      <a href="https://www.spiedigitallibrary.org/conference-proceedings-of-spie/13473/1347309/Beyond-human-reasoning-bridging-the-human-machine-information-gap/10.1117/12.3053414.short" class="pubs-btn">Proceedings</a>
+                      <a href="https://www.jhuapl.edu/news/news-releases/240618-ai-copilot-future-air-combat" class="pubs-btn">News Release</a>
+                    </div>
+                  </div>
+                  <div class="pubs-image">
+                    <img src="content/publications/stan.png" alt="" />
+                  </div>
+                </div>
+                <div class="pubs-endcap"><span class="pubs-tag">SPIE'25</span></div>
               </div>
             </div>
-          </article>
-          <!-- NeurIPS WS 2024 -->
-          <hr class="w-[98%] my-4 mx-auto border-gray-200">
-          <article>
-            <div class="flex gap-6">
-              <!-- IMAGE -->
-              <div class="tag-wrapper">
-                <div class="w-3/4 aspect-square border border-gray-200 rounded-md bg-white p-0.5">
-                  <!-- <img src="content/publications/inference.png" class="w-full h-full object-contain" /> -->
-                  <img src="content/publications/umap.png" class="w-full h-full object-contain" />
+
+            <!-- WORKSHOPS -->
+            <button type="button" class="pubs-toggle" data-pubs-toggle aria-expanded="true" aria-controls="pubs-workshops">+ Workshops</button>
+            <div class="pubs-list" id="pubs-workshops">
+              <!-- ICML WS 2025 -->
+              <div class="pubs-row">
+                <div class="pubs-row-main">
+                  <div class="pubs-text">
+                    <p class="pubs-title">Robust Noise Attenuation via Adaptive Pooling of Transformer Outputs</p>
+                    <p class="pubs-authors"><strong>Greyson&nbsp;Brothers</strong>.</p>
+                    <p class="pubs-venue">ICML Tokenization Workshop,&nbsp;2025.</p>
+                    <p class="pubs-venue">(dual submission with main track above)</p>
+                    <div class="pubs-buttons">
+                      <a href="https://arxiv.org/abs/2506.09215" class="pubs-btn">arXiv</a>
+                      <a href="https://openreview.net/forum?id=yRJpS6exNA" class="pubs-btn">OpenReview</a>
+                      <a href="https://tokenization-workshop.github.io/" class="pubs-btn">Workshop</a>
+                    </div>
+                  </div>
+                  <div class="pubs-image">
+                    <img src="content/publications/patches.png" alt="" />
+                  </div>
                 </div>
+                <div class="pubs-endcap"><span class="pubs-tag">ICML'25</span></div>
               </div>
-              <!-- PUBLICATION DETAILS -->
-              <div class="flex-1 pub-block">
-                <span class="tag-pill tag-neurips" style="color: #ffe2e2;">NeurIPS'24</span>
-                <h3 class="text-xl font-semibold">Uncovering Uncertainty in Transformer Inference</h3>
-                <p class="text-base text-gray-600 pub-authors"><strong>Greyson&nbsp;Brothers</strong>, Willa Mannering, Amber Tien, John Winder.</p>
-                <p class="text-s text-gray-500 italic pub-venue">NeurIPS Workshop on Foundation Model Interventions,&nbsp;2024.</p>
-                <div class="flex flex-wrap gap-2 pt-1">
-                  <a href="https://arxiv.org/abs/2412.05768" class="bg-gray-200 btn-link">arXiv</a>
-                  <a href="https://openreview.net/forum?id=ceLabCFfxh" class="bg-gray-200 btn-link">OpenReview</a>
-                  <a href="https://neurips.cc/media/neurips-2024/Slides/104082.pdf" class="bg-gray-200 btn-link">Poster</a>
-                  <a href="https://sites.google.com/view/mint-2024" class="bg-gray-200 btn-link">Workshop</a>
+              <!-- NeurIPS WS 2024 -->
+              <div class="pubs-row">
+                <div class="pubs-row-main">
+                  <div class="pubs-text">
+                    <p class="pubs-title">Uncovering Uncertainty in Transformer Inference</p>
+                    <p class="pubs-authors"><strong>Greyson&nbsp;Brothers</strong>, Willa Mannering, Amber Tien, John Winder.</p>
+                    <p class="pubs-venue">NeurIPS Workshop on Foundation Model Interventions,&nbsp;2024.</p>
+                    <div class="pubs-buttons">
+                      <a href="https://arxiv.org/abs/2412.05768" class="pubs-btn">arXiv</a>
+                      <a href="https://openreview.net/forum?id=ceLabCFfxh" class="pubs-btn">OpenReview</a>
+                      <a href="https://neurips.cc/media/neurips-2024/Slides/104082.pdf" class="pubs-btn">Poster</a>
+                      <a href="https://sites.google.com/view/mint-2024" class="pubs-btn">Workshop</a>
+                    </div>
+                  </div>
+                  <div class="pubs-image">
+                    <img src="content/publications/umap.png" alt="" />
+                  </div>
                 </div>
+                <div class="pubs-endcap"><span class="pubs-tag">NeurIPS'24</span></div>
               </div>
             </div>
-          </article>
-          <hr class="w-[98%] my-4 mx-auto border-gray-200">    
+          </div>
         </div>
       </section>
   </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <p class="site-footer-label">Find me</p>
+      <div class="site-footer-links">
+        <a href="mailto:greysonbrothers@gmail.com">email</a>
+        <a href="https://github.com/agbrothers" target="_blank" rel="noopener">github</a>
+        <a href="https://scholar.google.com/citations?view_op=list_works&hl=en&hl=en" target="_blank" rel="noopener">scholar</a>
+        <a href="https://www.linkedin.com/in/gbrothers" target="_blank" rel="noopener">linkedin</a>
+        <a href="https://x.com/greysonbrothers" target="_blank" rel="noopener">x</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
