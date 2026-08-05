@@ -52,6 +52,33 @@ body {
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: "Bitcount Prop Single Roman";
+  src: url("../content/fonts/Bitcount_Prop_Single/static/BitcountPropSingle_Roman-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Bitcount Prop Single Roman";
+  src: url("../content/fonts/Bitcount_Prop_Single/static/BitcountPropSingle_Roman-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* NAVBAR — social links (mirrors the footer's find-me links) */
+.nav-social-link {
+  font-family: "Bitcount Prop Single Roman", sans-serif;
+  font-weight: 300;
+  font-size: 1.125rem; /* 18px */
+  color: #7F7F7F;
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+.nav-social-link:hover {
+  color: #FF5255;
+}
 
 /* ============================================================
    SITE LAYOUT
@@ -72,6 +99,20 @@ body {
   max-width: var(--site-max-width);
   margin-left: auto;
   margin-right: auto;
+}
+
+/* HERO — extra breathing room below the fixed navbar, above the name.
+   Separate from <main>'s own pt-24 (which just clears the fixed header)
+   so it can be tuned independently. */
+#home {
+  --hero-top-pad: 5rem;
+  --hero-bottom-pad: 3rem;     /* desktop only — mobile stays flush against Publications, see below */
+  padding-top: var(--hero-top-pad);
+}
+@media (min-width: 768px) {
+  #home { padding-bottom: var(--hero-bottom-pad); }
+  /* keep the profile pic's top edge in lockstep with the name's, whatever --hero-top-pad is */
+  .hero-portrait { top: var(--hero-top-pad); }
 }
 
 /* CUSTOM BUTTONS */
@@ -320,13 +361,206 @@ body {
 }
 
 /* ============================================================
+   PROJECTS
+   ============================================================ */
+/* full-bleed dark band, same pattern as .pubs / .pubs-inner:
+   .pubs-fullbleed (on the <section>) escapes <main>'s width so this can
+   span edge-to-edge; .site-width (inside) re-centers the readable column. */
+.projects-band {
+  background-color: #262626;
+  color: #F2F2F2;
+  /* matches .pubs's own font-size exactly, so the "Projects" h2 (reusing
+     .pubs-header, 2.125em) scales identically to "Publications" instead of
+     resolving against the flat inherited 16px base */
+  font-size: clamp(0.875rem, 1vw, 1.375rem);
+  /* top padding mirrors the fluid padding above the Publications header:
+     .pubs-pad-top (4em) at .pubs's own font-size, clamp(0.875rem, 1vw, 1.375rem) */
+  padding-top: clamp(3.5rem, 4vw, 5.5rem);
+  padding-bottom: 6rem;
+}
+
+/* PROJECTS GRID — 2 columns x N rows, one project per row, alternating
+   which column holds text vs. media (controlled purely by DOM order —
+   row 1: text,media / row 2: media,text / row 3: text,media / ...).
+   Border technique: the grid supplies the top+left edge, every cell
+   supplies its own right+bottom edge — adjacent cells' edges land on
+   the same line, so internal dividers stay a single pixel, never doubled. */
+.projects-grid {
+  --project-cell-pad: 1.5em;   /* inset for text-cell content; tune here */
+  --project-hover-bg: #404040; /* next shade up from the #262626 band, mirrors .pubs-row's hover fill */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-left: 1px solid #FFFFFF;
+  border-top: 1px solid #FFFFFF;
+  margin-top: 1.75em; /* mirrors --pubs-section-gap under the header */
+}
+
+.project-cell {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-right: 1px solid #FFFFFF;
+  border-bottom: 1px solid #FFFFFF;
+  overflow: hidden;
+}
+
+/* TEXT CELLS */
+.project-cell--text {
+  /* Fluid type scale, piecewise in two segments rather than one straight
+     line. A single linear vw formula can't serve both ends: these cells
+     are square with overflow:hidden, so at narrow widths (~650-860px,
+     right before the single-column breakpoint) text has to stay small
+     enough to never overflow — verified clipping there at higher values —
+     but that same conservative slope leaves desktop-width cells looking
+     under-filled, and desktop is the priority. So below 1100px, keep the
+     proven-safe slope; above it (see the min-width:1100px block further
+     down), switch to a steeper one that starts from the same value at
+     1100px (no visible jump) and grows faster from there. */
+  font-size: clamp(0.55rem, 1.08vw, 2.15rem);
+
+  padding: var(--project-cell-pad);
+  /* extra bottom padding reserves room for .project-links, which is
+     absolutely positioned (see below) rather than flexed into place —
+     margin-top:auto proved unreliable here, since this box's height comes
+     from aspect-ratio rather than an explicit value, and auto-margin
+     distribution against an aspect-ratio-derived height isn't consistent
+     across browsers. Absolute positioning against this box's own edges
+     sidesteps that entirely. */
+  padding-bottom: calc(var(--project-cell-pad) + 3.5em);
+  transition: background-color 150ms ease;
+}
+.project-cell--text:hover {
+  background-color: var(--project-hover-bg);
+}
+
+.project-number {
+  position: absolute;
+  top: var(--project-cell-pad);
+  right: var(--project-cell-pad);
+  font-family: "Geist", sans-serif;
+  font-size: 1.125em; /* 18px @ reference */
+  color: #7F7F7F;
+}
+
+.project-title {
+  font-family: "Playfair 144pt", serif;
+  font-weight: 700;
+  font-size: 1.25em; /* 20px @ reference */
+  color: #BFBFBF;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+  margin: 0 0 1.25em;
+}
+
+.project-body {
+  padding-right: 3em; /* body text stops where the project number's column starts */
+  font-family: "Geist", sans-serif;
+  font-size: 0.6875em; /* 11px @ reference */
+  color: #7F7F7F;
+  line-height: 1.55;
+}
+.project-body p {
+  margin: 0 0 0.85em;
+  text-align: justify;
+  text-justify: inter-word;
+}
+.project-body p:last-child { margin-bottom: 0; }
+
+.project-list {
+  margin: 0 0 0.85em;
+  padding-left: 1.25em;
+  list-style: decimal;
+  text-align: left;
+}
+.project-list li { margin-bottom: 0.35em; }
+.project-list li:last-child { margin-bottom: 0; }
+
+.project-links {
+  position: absolute;
+  left: var(--project-cell-pad);
+  right: var(--project-cell-pad);
+  bottom: var(--project-cell-pad);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+/* DOM order already puts READ nearest the media cell in both orientations
+   (link-then-READ for normal cells, READ-then-link for reversed cells) —
+   no flex-direction override needed, that would just re-flip it. */
+
+.project-link {
+  font-family: "Bitcount Prop Single Roman", sans-serif;
+  font-weight: 400;
+  font-size: 0.875em; /* 14px @ reference */
+  color: #F2F2F2;
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+.project-link:hover { color: #FF5255; }
+
+.project-read {
+  display: inline-block;
+  padding: 0.5em 1em;
+  font-family: "Bitcount Prop Single Roman", sans-serif;
+  font-weight: 400;
+  font-size: 0.8125em; /* 13px @ reference */
+  letter-spacing: 0.05em;
+  color: #000000;
+  background-color: #FFFFFF;
+  border: none;
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+.project-read:hover {
+  color: #FF5255;
+}
+
+/* MEDIA CELLS — flush, edge-to-edge fill. Default crops to fill (cover);
+   add .project-media--fill per item to squish/distort instead of cropping. */
+.project-media-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.project-media {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: filter 150ms ease;
+}
+.project-media--fill {
+  object-fit: fill;
+}
+/* a background-color hover wouldn't read through a cover-fit video, so dim
+   the video itself instead — same hover intent as the text cells' fill */
+.project-media-link:hover .project-media {
+  filter: brightness(0.8);
+}
+
+@media (max-width: 640px) {
+  .projects-grid { grid-template-columns: 1fr; }
+  .project-cell--text { aspect-ratio: auto; }
+}
+
+@media (min-width: 1100px) {
+  /* Steeper desktop segment of the piecewise scale (see .project-cell--text
+     above). calc(-10.1px + 2vw) == 1.08vw's value at exactly 1100px, so
+     there's no visible jump at the seam, then grows faster from there:
+     ~22px at 1600px, ~30px at 2000px, capped at 2.5rem (40px). */
+  .project-cell--text {
+    font-size: clamp(0.74rem, calc(-10.1px + 2vw), 2.5rem);
+  }
+}
+
+/* ============================================================
    FOOTER
    ============================================================ */
 .site-footer {
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  background: #262626;
+  background: #101010;
   padding: 2rem 0;
 }
 
